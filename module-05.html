@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Module 5: Editing & Revision — Self-Publish 101</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #F9F5EE; --ink: #1A1510; --gold: #C8963E; --gold-light: #E8C97A;
+    --rust: #8B4A2A; --sage: #4A5E4A; --mist: #E8E2D8; --shadow: rgba(26,21,16,0.12);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--ink); overflow-x: hidden; font-size: 16px; line-height: 1.7; }
+
+  /* NAV */
+  nav { position: sticky; top: 0; z-index: 100; background: rgba(26,21,16,0.97); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(200,150,62,0.2); }
+  .nav-inner { max-width: 900px; margin: 0 auto; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; }
+  .nav-logo { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 700; color: var(--cream); text-decoration: none; }
+  .nav-logo span { color: var(--gold); }
+  .nav-back { font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(249,245,238,0.5); text-decoration: none; transition: color 0.2s; display: flex; align-items: center; gap: 0.4rem; }
+  .nav-back:hover { color: var(--gold); }
+  .nav-tabs { display: flex; gap: 0; overflow-x: auto; scrollbar-width: none; }
+  .nav-tabs::-webkit-scrollbar { display: none; }
+  .tab { padding: 0.85rem 1.2rem; font-size: 0.75rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: rgba(249,245,238,0.4); text-decoration: none; border-bottom: 2px solid transparent; white-space: nowrap; transition: color 0.2s, border-color 0.2s; }
+  .tab:hover { color: rgba(249,245,238,0.8); }
+  .tab.active { color: var(--cream); border-color: var(--gold); }
+
+  /* HERO */
+  .hero { background: var(--ink); padding: 4rem 2rem 3.5rem; position: relative; overflow: hidden; }
+  .hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 60% 60% at 10% 90%, rgba(200,150,62,0.15) 0%, transparent 55%), radial-gradient(ellipse 40% 40% at 90% 10%, rgba(139,74,42,0.1) 0%, transparent 50%); }
+  .hero-inner { max-width: 900px; margin: 0 auto; position: relative; z-index: 2; }
+  .hero-badge { display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(200,150,62,0.12); border: 1px solid rgba(200,150,62,0.3); border-radius: 2rem; padding: 0.35rem 0.9rem; margin-bottom: 1.5rem; }
+  .hero-badge span { font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold-light); }
+  .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.2rem, 5vw, 4rem); font-weight: 900; line-height: 1.08; color: var(--cream); margin-bottom: 1rem; }
+  .hero h1 em { font-style: italic; color: var(--gold); }
+  .hero-sub { font-size: 1rem; color: rgba(249,245,238,0.55); max-width: 520px; line-height: 1.65; font-weight: 300; }
+
+  /* VIDEO */
+  .video-wrap { background: #0d0b08; padding: 3rem 2rem; }
+  .video-inner { max-width: 900px; margin: 0 auto; }
+  .video-label { font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; }
+  video { width: 100%; border-radius: 0.35rem; display: block; max-height: 520px; background: #000; }
+
+  /* CONTENT */
+  .content { max-width: 900px; margin: 0 auto; padding: 0 2rem; }
+  .section { padding: 4.5rem 0; border-bottom: 1px solid var(--mist); }
+  .section:last-child { border-bottom: none; }
+  .eyebrow { font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.6rem; display: flex; align-items: center; gap: 0.6rem; }
+  .eyebrow::after { content: ''; display: block; height: 1px; width: 32px; background: var(--gold); opacity: 0.4; }
+  .section-title { font-family: 'Playfair Display', serif; font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 700; line-height: 1.15; margin-bottom: 1.25rem; }
+  .lead { font-size: 1.05rem; color: rgba(26,21,16,0.72); line-height: 1.75; margin-bottom: 1.25rem; }
+  p { margin-bottom: 1.1rem; color: rgba(26,21,16,0.78); }
+
+  /* CALLOUT */
+  .callout { background: var(--ink); color: var(--cream); border-radius: 0.5rem; padding: 1.75rem 2rem; margin: 2rem 0; position: relative; overflow: hidden; }
+  .callout::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--gold), var(--gold-light)); }
+  .callout-label { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.5rem; }
+  .callout h3 { font-family: 'Playfair Display', serif; font-size: 1.15rem; margin-bottom: 0.6rem; color: var(--cream); }
+  .callout p { color: rgba(249,245,238,0.75); margin-bottom: 0; font-size: 0.95rem; }
+
+  /* LESSON TITLE */
+  .lesson-title { font-family: 'Playfair Display', serif; font-size: 1.35rem; font-weight: 700; margin: 2.5rem 0 0.75rem; color: var(--ink); }
+  .lesson-title:first-child { margin-top: 0; }
+
+  /* PILLARS */
+  .pillar { border: 1px solid var(--mist); border-radius: 0.5rem; padding: 1.75rem; margin-bottom: 1.25rem; position: relative; transition: border-color 0.2s, box-shadow 0.2s; }
+  .pillar:hover { border-color: var(--gold); box-shadow: 0 4px 20px var(--shadow); }
+  .pillar-num { font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: 900; color: var(--gold); opacity: 0.18; position: absolute; top: 1rem; right: 1.25rem; line-height: 1; }
+  .pillar h3 { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; margin-bottom: 0.5rem; }
+  .pillar p { margin-bottom: 0; font-size: 0.92rem; }
+
+  /* TWO COL */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; margin: 1.5rem 0; }
+  .col-box { background: var(--mist); border-radius: 0.5rem; padding: 1.5rem; }
+  .col-box h4 { font-family: 'Playfair Display', serif; font-size: 0.95rem; font-weight: 700; margin-bottom: 1rem; padding-bottom: 0.6rem; border-bottom: 1px solid rgba(26,21,16,0.1); }
+  .col-box ul { list-style: none; }
+  .col-box li { padding: 0.4rem 0; font-size: 0.87rem; color: rgba(26,21,16,0.75); border-bottom: 1px solid rgba(26,21,16,0.05); display: flex; gap: 0.5rem; align-items: flex-start; }
+  .col-box li::before { content: '·'; color: var(--gold); font-size: 1.1rem; line-height: 1.3; flex-shrink: 0; }
+
+  /* STEPS */
+  .step { display: flex; gap: 1.25rem; margin-bottom: 1.75rem; align-items: flex-start; }
+  .step-num { flex-shrink: 0; width: 2.25rem; height: 2.25rem; background: var(--ink); color: var(--gold); font-family: 'Playfair Display', serif; font-size: 0.95rem; font-weight: 700; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-top: 0.1rem; }
+  .step h4 { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 700; margin-bottom: 0.3rem; }
+  .step p { margin-bottom: 0; font-size: 0.92rem; }
+
+  /* HIGHLIGHT BOX */
+  .highlight { background: linear-gradient(135deg, var(--sage), #3a4a3a); color: var(--cream); border-radius: 0.5rem; padding: 1.75rem 2rem; margin: 2rem 0; }
+  .highlight h3 { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; margin-bottom: 0.6rem; }
+  .highlight p { color: rgba(249,245,238,0.78); margin-bottom: 0; font-style: italic; font-size: 0.93rem; }
+
+  /* ASSIGNMENTS */
+  .assignment { border: 1.5px solid var(--mist); border-radius: 0.5rem; overflow: hidden; margin-bottom: 1.75rem; }
+  .assign-header { background: var(--ink); padding: 1.1rem 1.5rem; display: flex; align-items: center; gap: 0.9rem; }
+  .assign-num { font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.12em; color: var(--gold); background: rgba(200,150,62,0.12); border: 1px solid rgba(200,150,62,0.25); padding: 0.2rem 0.55rem; border-radius: 0.2rem; flex-shrink: 0; }
+  .assign-header h3 { font-family: 'Playfair Display', serif; font-size: 1rem; color: var(--cream); margin: 0; }
+  .assign-body { padding: 1.5rem; }
+  .assign-prompt { font-style: italic; color: rgba(26,21,16,0.6); font-size: 0.92rem; margin-bottom: 1rem; line-height: 1.6; }
+  textarea.write { background: white; border: 1.5px solid var(--mist); border-radius: 0.3rem; padding: 1rem; min-height: 130px; font-family: 'DM Sans', sans-serif; font-size: 0.92rem; color: var(--ink); line-height: 1.65; resize: vertical; width: 100%; outline: none; transition: border-color 0.2s; }
+  textarea.write:focus { border-color: var(--gold); }
+  textarea.write::placeholder { color: rgba(26,21,16,0.25); font-style: italic; }
+
+  /* TRACKER */
+  .progress-wrap { background: var(--mist); border-radius: 2rem; height: 5px; margin: 1.25rem 0 0.4rem; overflow: hidden; }
+  .progress-bar { height: 100%; background: linear-gradient(90deg, var(--sage), #6a8a6a); border-radius: 2rem; transition: width 0.4s ease; width: 0%; }
+  .progress-text { font-family: 'DM Mono', monospace; font-size: 0.7rem; color: rgba(26,21,16,0.4); letter-spacing: 0.1em; margin-bottom: 1.5rem; }
+  .tracker-item { display: flex; align-items: center; gap: 0.9rem; padding: 0.8rem 0.9rem; border-radius: 0.3rem; cursor: pointer; transition: background 0.15s; user-select: none; margin-bottom: 0.4rem; }
+  .tracker-item:hover { background: var(--mist); }
+  .tracker-item.done { background: rgba(74,94,74,0.07); }
+  .tracker-check { width: 1.25rem; height: 1.25rem; border: 2px solid rgba(26,21,16,0.18); border-radius: 0.22rem; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: border-color 0.2s, background 0.2s; }
+  .tracker-item.done .tracker-check { border-color: var(--sage); background: var(--sage); }
+  .tracker-check svg { display: none; }
+  .tracker-item.done .tracker-check svg { display: block; }
+  .tracker-label { font-size: 0.92rem; color: rgba(26,21,16,0.78); transition: color 0.2s; }
+  .tracker-item.done .tracker-label { color: rgba(26,21,16,0.38); text-decoration: line-through; }
+
+  /* QUIZ */
+  .quiz-q { margin-bottom: 2rem; }
+  .quiz-q h4 { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 700; margin-bottom: 0.85rem; line-height: 1.4; }
+  .radio-group { display: flex; flex-direction: column; gap: 0.5rem; }
+  .radio-opt { display: flex; align-items: center; gap: 0.7rem; padding: 0.7rem 0.9rem; border: 1.5px solid var(--mist); border-radius: 0.3rem; cursor: pointer; transition: border-color 0.15s, background 0.15s; font-size: 0.9rem; }
+  .radio-opt:hover { border-color: rgba(200,150,62,0.35); background: rgba(200,150,62,0.04); }
+  .radio-opt input { display: none; }
+  .radio-dot { width: 1rem; height: 1rem; border: 2px solid rgba(26,21,16,0.18); border-radius: 50%; flex-shrink: 0; position: relative; transition: border-color 0.15s; }
+  .radio-opt input:checked ~ .radio-dot { border-color: var(--gold); }
+  .radio-opt input:checked ~ .radio-dot::after { content: ''; position: absolute; inset: 2.5px; background: var(--gold); border-radius: 50%; }
+
+  /* READY BOX */
+  .ready-box { background: var(--ink); border-radius: 0.5rem; padding: 2.5rem; margin-top: 2.5rem; text-align: center; position: relative; overflow: hidden; }
+  .ready-box::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 60% 50% at 50% 100%, rgba(200,150,62,0.13) 0%, transparent 60%); }
+  .ready-box h2 { font-family: 'Playfair Display', serif; font-size: 1.75rem; font-weight: 700; color: var(--cream); margin-bottom: 0.75rem; position: relative; }
+  .ready-box p { color: rgba(249,245,238,0.62); max-width: 460px; margin: 0 auto 1.75rem; position: relative; font-size: 0.95rem; }
+  .btn-primary { display: inline-block; background: var(--gold); color: var(--ink); padding: 0.85rem 2rem; border-radius: 0.25rem; font-weight: 500; font-size: 0.92rem; text-decoration: none; transition: background 0.2s, transform 0.15s; position: relative; }
+  .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); }
+
+  /* TABLE */
+  .table-wrap { overflow-x: auto; margin: 1.5rem 0; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+  th { background: var(--ink); color: var(--gold); font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.14em; text-transform: uppercase; padding: 0.75rem 0.9rem; text-align: left; font-weight: 500; }
+  td { padding: 0; border-bottom: 1px solid var(--mist); vertical-align: middle; }
+  tr:hover td { background: rgba(200,150,62,0.03); }
+  .td-label { padding: 0.65rem 0.9rem; font-family: 'DM Mono', monospace; font-size: 0.72rem; color: rgba(26,21,16,0.38); width: 3.5rem; text-align: center; }
+  .td-input { border: none; background: transparent; padding: 0.65rem 0.75rem; font-family: 'DM Sans', sans-serif; font-size: 0.88rem; color: var(--ink); width: 100%; outline: none; }
+  .td-input:focus { background: rgba(200,150,62,0.06); }
+  .td-input::placeholder { color: rgba(26,21,16,0.22); font-style: italic; }
+
+  footer { background: var(--ink); color: rgba(249,245,238,0.3); text-align: center; padding: 2rem; font-size: 0.78rem; letter-spacing: 0.08em; margin-top: 2rem; }
+  footer strong { color: var(--gold); }
+
+  @media (max-width: 640px) {
+    .hero { padding: 3rem 1.5rem 2.5rem; }
+    .content { padding: 0 1.5rem; }
+    .video-wrap { padding: 2rem 1.5rem; }
+    .two-col { grid-template-columns: 1fr; }
+    .nav-inner { flex-wrap: wrap; gap: 0.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="../index.html" class="nav-back">← All Modules</a>
+    <a href="../index.html" class="nav-logo">Self-Publish <span>101</span></a>
+  </div>
+  <div class="nav-tabs" style="max-width:900px;margin:0 auto;padding:0 2rem;">
+    <a href="#overview" class="tab active" data-s="overview">Overview</a>
+    <a href="#lessons" class="tab" data-s="lessons">Lessons</a>
+    <a href="#assignments" class="tab" data-s="assignments">Assignments</a>
+    <a href="#tracker" class="tab" data-s="tracker">Tracker</a>
+    <a href="#quiz" class="tab" data-s="quiz">Quiz</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-badge"><span>Module 05 · Phase One · Writing</span></div>
+    <h1>Editing & Revision</h1>
+    <p class="hero-sub">Turn your first draft into a publishable manuscript. Three professional revision passes — structural, chapter-level, and line-level.</p>
+  </div>
+</section>
+
+
+  <div class="video-wrap" id="video">
+    <div class="video-inner">
+      <div class="video-label">Module 5 · Lesson Video</div>
+      <video controls poster="" preload="metadata">
+        <source src="../videos/From_Manuscript_to_Masterpiece.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </div>
+  </div>
+
+<main class="content">
+
+  <section class="section" id="overview">
+    <div class="eyebrow">Overview</div>
+    <h2 class="section-title">What You'll Accomplish</h2>
+    <p class="lead">A first draft is raw material. Revision is where you shape it into something worth publishing. Most writers underestimate how transformative the revision process is — and how much of the real writing happens here, not in the first draft.</p><p>This module walks you through three levels of revision. By the time you complete all three passes, you will have a manuscript that is coherent, focused, and compelling.</p>
+    <div class="callout">
+      <div class="callout-label">Module 5 Deliverable</div>
+      <p>A revised, polished manuscript ready for final proofreading and the publishing process in Phase Two.</p>
+    </div>
+  </section>
+
+  <section class="section" id="lessons">
+    <div class="eyebrow">Lesson Content</div>
+    <h2 class="section-title">What You'll Learn</h2>
+    <div class="callout" style="background:var(--sage);">
+    <div class="callout-label">Before You Begin</div>
+    <p>Put your manuscript away for at least 2–3 days before starting revision. Distance gives you perspective. You need to be able to read your draft as a reader, not as the person who wrote it.</p>
+  </div>
+  <div class="lesson-title">The Three-Pass System</div>
+  <div class="two-col">
+    <div class="col-box"><h4>The Three Passes</h4><ul>
+      <li>Pass 1: Structural Revision</li>
+      <li>Pass 2: Chapter-Level Revision</li>
+      <li>Pass 3: Line-Level Revision</li>
+    </ul></div>
+    <div class="col-box"><h4>What Each Fixes</h4><ul>
+      <li>The overall architecture — does the book work as a whole?</li>
+      <li>Each chapter — does every section do its job?</li>
+      <li>Every sentence — is it clear, necessary, and right?</li>
+    </ul></div>
+  </div>
+  <div class="lesson-title">Pass 1: Structural Revision</div>
+  <p>Read your entire manuscript in one or two sittings without stopping to make changes. Take notes only. You are looking at the architecture of the whole book.</p>
+  <div class="pillar"><h3>Structural Questions to Answer</h3><p>Does the opening establish the book's promise? Does each chapter do its job? Are chapters in the right order? Is anything missing? Is anything that doesn't belong? Does the ending deliver on the opening?</p></div>
+  <div class="lesson-title">Pass 2: Chapter-Level Revision</div>
+  <p>Go through the manuscript chapter by chapter. For each chapter ask: Does it open with something that earns the reader's attention? Is the chapter's one job clear? Does it end with enough momentum to carry to the next?</p>
+  <div class="highlight"><h3>The Chapter Tension Test</h3><p>Every chapter needs tension — something unresolved that pulls the reader forward. In fiction: dramatic tension. In non-fiction: intellectual tension — a question not yet fully answered. If a chapter has no tension, readers stop.</p></div>
+  <div class="lesson-title">Pass 3: Line-Level Revision</div>
+  <div class="pillar"><h3>Line-Level Checklist</h3><p>Cut every word that doesn't earn its place. Replace vague words with specific ones. Vary sentence length deliberately. Check for repetition. Read dialogue out loud. Look for passive voice. Give extra attention to the first and last sentences of every chapter.</p></div>
+  </section>
+
+  <section class="section" id="assignments">
+    <div class="eyebrow">Assignments</div>
+    <h2 class="section-title">Your Work</h2>
+    <p class="lead">Complete each assignment before moving to the next module.</p>
+    <div class="assignment">
+    <div class="assign-header"><span class="assign-num">5.1</span><h3>The Full Read-Through</h3></div>
+    <div class="assign-body">
+      <p class="assign-prompt">Read your entire manuscript without making changes. Note: (1) the three things working best, (2) the three biggest structural problems, (3) anything that surprised you.</p>
+      <textarea class="write" style="min-height:180px;" placeholder="What's working best... Structural problems... What surprised me..."></textarea>
+    </div>
+  </div>
+  <div class="assignment">
+    <div class="assign-header"><span class="assign-num">5.2</span><h3>Structural Diagnosis</h3></div>
+    <div class="assign-body">
+      <p class="assign-prompt">Which chapters need to move? Which need to be cut? What is missing that the book needs? List your structural changes before making them.</p>
+      <textarea class="write" style="min-height:160px;" placeholder="Chapters to move... Chapters to cut... Missing material..."></textarea>
+    </div>
+  </div>
+  <div class="assignment">
+    <div class="assign-header"><span class="assign-num">5.3</span><h3>Your Weakest Chapter</h3></div>
+    <div class="assign-body">
+      <p class="assign-prompt">Identify the chapter that needs the most work. Describe what is wrong with it and write a plan for how to fix it. Then rewrite it.</p>
+      <textarea class="write" style="min-height:160px;" placeholder="My weakest chapter is... What's wrong: ... My plan to fix it: ..."></textarea>
+    </div>
+  </div>
+  <div class="assignment">
+    <div class="assign-header"><span class="assign-num">5.4</span><h3>Your Opening and Ending</h3></div>
+    <div class="assign-body">
+      <p class="assign-prompt">Rewrite your first paragraph and last paragraph. Write at least three versions of each and choose the strongest.</p>
+      <textarea class="write" style="min-height:180px;" placeholder="Opening versions... Ending versions... Which I chose and why..."></textarea>
+    </div>
+  </div>
+  <div class="assignment">
+    <div class="assign-header"><span class="assign-num">5.5</span><h3>Voice Check</h3></div>
+    <div class="assign-body">
+      <p class="assign-prompt">Copy one paragraph from the beginning, middle, and end of your manuscript. Read them together. Does your voice sound like the same person throughout?</p>
+      <textarea class="write" style="min-height:180px;" placeholder="Beginning paragraph... Middle paragraph... Ending paragraph... My observations..."></textarea>
+    </div>
+  </div>
+  <div class="assignment">
+    <div class="assign-header"><span class="assign-num">5.6</span><h3>The Cut List</h3></div>
+    <div class="assign-body">
+      <p class="assign-prompt">List every section, scene, or chapter you know should be cut but haven't yet. Name them here. Then cut them. (Save them in a separate 'cut material' document.)</p>
+      <textarea class="write" placeholder="Things to cut..."></textarea>
+    </div>
+  </div>
+  </section>
+
+  <section class="section" id="tracker">
+    <div class="eyebrow">Progress Tracker</div>
+    <h2 class="section-title">Module 5 Checklist</h2>
+    <p>Check off each item as you complete it.</p>
+    <div class="progress-wrap"><div class="progress-bar" id="prog-bar"></div></div>
+    <p class="progress-text" id="prog-text">0 of 14 complete</p>
+    <div id="tracker-list">
+      <div class="tracker-item" onclick="toggleTracker(this)">
+        <div class="tracker-check"><svg width="12" height="9" viewBox="0 0 12 9" fill="none"><path d="M1 4L4.5 7.5L11 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <span class="tracker-label">Manuscript rested 2+ days before revision began</span>
+      </div>
+      <div class="tracker-item" onclick="toggleTracker(this)">
+        <div class="tracker-check"><svg width="12" height="9" viewBox="0 0 12 9" fill="none"><path d="M1 4L4.5 7.5L11 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <span class="tracker-label">Watched the Module 5 video</span>
+      </div>
+      <div class="tracker-item" onclick="toggleTracker(this)">
+        <div class="tracker-check"><svg width="12" height="9" viewBox="0 0 12 9" fill="none"><path d="M1 4L4.5 7.5L11 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <span class="tracker-label">Read: The Three-Pass System</span>
+      </div>
+      <div class="tracker-item" onclick="toggleTracker(this)">
+        <div class="tracker-check"><svg width="12" height="9" viewBox="0 0 12 9" fill="none"><path d="M1 4L4.5 7.5L11 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <span class="tracker-label">Completed Pass 1 — All structural changes made</span>
+      </div>
+      <div class="tracker-item" onclick="toggleTracker(this)">
+        <div class="tracker-check"><svg width="12" height="9" viewBox="0 0 12 9" fill="none"><path d="M1 4L4.5 7.5L11 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <span class="tracker-label">Completed Pass 2 — All chapters revised for clarity and tension</span>
+      </div>
+      <div class="tracker-item" onclick="toggleTracker(this)">
+        <div class="tracker-check"><svg width="12" height="9" viewBox="0 0 12 9" fill="none"><path d="M1 4L4.5 7.5L11 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <span class="tracker-label">Completed Pass 3 — Line-level revision complete</span>
+      </div>
+      <div class="tracker-item" onclick="toggleTracker(this)">
+        <div class="tracker-check"><svg width="12" height="9" viewBox="0 0 12 9" fill="none"><path d="M1 4L4.5 7.5L11 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <span class="tracker-label">Completed Assignment 5.1 — Full Read-Through</span>
+      </div>
+      <div class="tracker-item" onclick="toggleTracker(this)">
+        <div class="tracker-check"><svg width="12" height="9" viewBox="0 0 12 9" fill="none"><path d="M1 4L4.5 7.5L11 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <span class="tracker-label">Completed Assignment 5.2 — Structural Diagnosis</span>
+      </div>
+      <div class="tracker-item" onclick="toggleTracker(this)">
+        <div class="tracker-check"><svg width="12" height="9" viewBox="0 0 12 9" fill="none"><path d="M1 4L4.5 7.5L11 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <span class="tracker-label">Completed Assignment 5.3 — Weakest Chapter Rewritten</span>
+      </div>
+      <div class="tracker-item" onclick="toggleTracker(this)">
+        <div class="tracker-check"><svg width="12" height="9" viewBox="0 0 12 9" fill="none"><path d="M1 4L4.5 7.5L11 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <span class="tracker-label">Completed Assignment 5.4 — Opening and Ending Rewritten</span>
+      </div>
+      <div class="tracker-item" onclick="toggleTracker(this)">
+        <div class="tracker-check"><svg width="12" height="9" viewBox="0 0 12 9" fill="none"><path d="M1 4L4.5 7.5L11 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <span class="tracker-label">Completed Assignment 5.5 — Voice Check</span>
+      </div>
+      <div class="tracker-item" onclick="toggleTracker(this)">
+        <div class="tracker-check"><svg width="12" height="9" viewBox="0 0 12 9" fill="none"><path d="M1 4L4.5 7.5L11 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <span class="tracker-label">Completed Assignment 5.6 — Cut List executed</span>
+      </div>
+      <div class="tracker-item" onclick="toggleTracker(this)">
+        <div class="tracker-check"><svg width="12" height="9" viewBox="0 0 12 9" fill="none"><path d="M1 4L4.5 7.5L11 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <span class="tracker-label">Beta reader or second reader has reviewed manuscript</span>
+      </div>
+      <div class="tracker-item" onclick="toggleTracker(this)">
+        <div class="tracker-check"><svg width="12" height="9" viewBox="0 0 12 9" fill="none"><path d="M1 4L4.5 7.5L11 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <span class="tracker-label">Final manuscript saved and titled correctly</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="quiz">
+    <div class="eyebrow">Reflection Quiz</div>
+    <h2 class="section-title">Self-Assessment</h2>
+    <p>Complete this before moving to the next module.</p>
+    <div style="margin-top:2rem;">
+      <div class="quiz-q"><h4>How many complete revision passes did you do?</h4>
+    <div class="radio-group">
+      <label class="radio-opt"><input type="radio" name="q1" value="a"><div class="radio-dot"></div><span>All three — structural, chapter-level, and line-level</span></label>
+      <label class="radio-opt"><input type="radio" name="q1" value="b"><div class="radio-dot"></div><span>Two passes</span></label>
+      <label class="radio-opt"><input type="radio" name="q1" value="c"><div class="radio-dot"></div><span>One pass</span></label>
+      <label class="radio-opt"><input type="radio" name="q1" value="d"><div class="radio-dot"></div><span>Still working through my first pass</span></label>
+    </div>
+  </div>
+  <div class="quiz-q"><h4>Is your manuscript ready to move to formatting?</h4>
+    <div class="radio-group">
+      <label class="radio-opt"><input type="radio" name="q2" value="a"><div class="radio-dot"></div><span>Yes — it is clean, consistent, and complete</span></label>
+      <label class="radio-opt"><input type="radio" name="q2" value="b"><div class="radio-dot"></div><span>Almost — one or two more things to address</span></label>
+      <label class="radio-opt"><input type="radio" name="q2" value="c"><div class="radio-dot"></div><span>Not quite — I need another revision pass</span></label>
+    </div>
+  </div>
+  <div class="quiz-q"><h4>Reflection: What did the revision process reveal about your book?</h4>
+    <textarea class="write" placeholder="What I discovered in revision that surprised me..."></textarea>
+  </div>
+    </div>
+    <div class="ready-box">
+      <h2>Phase One Complete — You Have a Manuscript</h2>
+      <p>If your tracker is fully checked off and your assignments are complete, you are ready for the next step.</p>
+      <a href="module-06.html" class="btn-primary">Continue to Module 6 →</a>
+    </div>
+  </section>
+
+</main>
+
+<footer><strong>Self-Publish 101</strong> · Manuscript to Marketing · selfpublished101.com</footer>
+
+<script>
+  // Tab scroll highlighting
+  const secs = document.querySelectorAll('section[id]');
+  const tabs = document.querySelectorAll('.tab');
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        tabs.forEach(t => t.classList.remove('active'));
+        const a = document.querySelector(`.tab[href="#${e.target.id}"]`);
+        if (a) a.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-40% 0px -55% 0px' });
+  secs.forEach(s => obs.observe(s));
+
+  // Tracker
+  function toggleTracker(el) {
+    el.classList.toggle('done');
+    const items = document.querySelectorAll('.tracker-item');
+    const done = document.querySelectorAll('.tracker-item.done').length;
+    document.getElementById('prog-bar').style.width = (done / items.length * 100) + '%';
+    document.getElementById('prog-text').textContent = done + ' of ' + items.length + ' complete';
+  }
+
+  // Radio styling
+  document.querySelectorAll('.radio-opt input').forEach(inp => {
+    inp.addEventListener('change', function() {
+      document.querySelectorAll(`input[name="${this.name}"]`).forEach(i => {
+        i.closest('.radio-opt').style.borderColor = '';
+        i.closest('.radio-opt').style.background = '';
+      });
+      this.closest('.radio-opt').style.borderColor = 'var(--gold)';
+      this.closest('.radio-opt').style.background = 'rgba(200,150,62,0.06)';
+    });
+  });
+</script>
+</body>
+</html>
